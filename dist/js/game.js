@@ -23,12 +23,11 @@ function Boot() {
 }
 
 Boot.prototype = {
-  preload: function() {
-    this.load.image('preloader', 'assets/preloader.gif');
+  preload: function() {	
+	this.load.image('sky', 'assets/sky.png');
   },
-  create: function() {
-    this.game.input.maxPointers = 1;
-    this.game.state.start('preload');
+  create: function() {	
+    this.state.start('play');
   }
 };
 
@@ -100,23 +99,27 @@ module.exports = Menu;
   function Play() {}
   Play.prototype = {
     create: function() {
-      this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.sprite = this.game.add.sprite(this.game.width/2, this.game.height/2, 'yeoman');
-      this.sprite.inputEnabled = true;
-      
-      this.game.physics.arcade.enable(this.sprite);
-      this.sprite.body.collideWorldBounds = true;
-      this.sprite.body.bounce.setTo(1,1);
-      this.sprite.body.velocity.x = this.game.rnd.integerInRange(-500,500);
-      this.sprite.body.velocity.y = this.game.rnd.integerInRange(-500,500);
-
-      this.sprite.events.onInputDown.add(this.clickListener, this);
+    //  A simple background for our game
+    this.add.sprite(0, 0, 'sky');
+	  
+		this.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+		
+		this.input.keyboard.onDownCallback = function(e) {
+			//TODO instead of outputting A have it output random japanese characters
+			this.add.text(this.rnd.integerInRange(0, 750), this.rnd.integerInRange(0, 550), 'A', { fontSize: '32px', fill: '#000' });	
+			
+			if (!this.scale.isFullScreen)
+			{
+				this.scale.startFullScreen(true);	
+			}
+		}		
+	  
     },
     update: function() {
 
     },
     clickListener: function() {
-      this.game.state.start('gameover');
+      //this.game.state.start('gameover');
     }
   };
   
