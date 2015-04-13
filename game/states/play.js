@@ -5,11 +5,12 @@
     create: function() {
 		var me = this;
 
-    var getRandomCharacter = function() {
-      var array = ['A', 'B', 'C', 'D', 'E']
-      var index = me.rnd.integerInRange(0, 4);
+    var chars = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
+    var charArray = chars.split(',');
 
-      return array[index];
+    var getRandomCharacter = function() {
+      var index = me.rnd.integerInRange(0, charArray.length - 1);
+      return charArray[index];
     };
 
 		//  A simple background for our game
